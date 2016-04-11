@@ -1,0 +1,15 @@
+{
+  "name": "geocoder",
+  "version": "0.0.1",
+  "description": "Webservice de conversion adresse literale => coordonnées GPS",
+  "main": "webservice.js",
+  "dependencies": {
+    "geocoder": "^0.2.2",
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node webservice.js"
+  },
+  "author": "Colin LORRAIN",
+  "license": "ISC"
+}
