@@ -1,0 +1,15 @@
+{
+  "name": "scrapper",
+  "version": "0.0.1",
+  "description": "Scrapper pour recuperer les donnees complementaires au projet Velov",
+  "main": "scrap.js",
+  "dependencies": {
+    "x-ray-crawler": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node scrap.js"
+  },
+  "author": "Etienne LOUPIAS",
+  "license": "ISC"
+}
