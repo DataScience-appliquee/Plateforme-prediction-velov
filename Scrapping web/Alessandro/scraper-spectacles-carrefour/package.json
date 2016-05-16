@@ -1,0 +1,14 @@
+{
+  "name": "scraper-spectacles-carrefour",
+  "version": "1.0.0",
+  "description": "This program dumps to a JSON file the data related to the shows on sale on www.spectacles.carrefour.fr.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node_modules/casperjs/bin/casperjs main.js"
+  },
+  "author": "Alessandro Cerioni",
+  "license": "ISC",
+  "dependencies": {
+    "casperjs": "^1.1.1"
+  }
+}
