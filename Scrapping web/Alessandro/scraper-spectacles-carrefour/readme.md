@@ -20,4 +20,4 @@ Vu le nombre de résultats relatifs à la ville de Lyon et la lenteur du script,
 
 **TODO**
 
-Optimiser le code pour réduire son temps d'exécution.
+Optimiser le code pour réduire le temps d'exécution.
