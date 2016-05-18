@@ -6,6 +6,7 @@ var fs = require('fs');
 var casper = require('casper').create({
   verbose: true,
   logLevel: "info",
+  // logLevel: "debug",
   viewportSize: {
         width: 1024,
         height: 768
@@ -16,13 +17,40 @@ var casper = require('casper').create({
   }
 });
 
+
+// -----------------------------------------------------------------------------------------------------
+// cf. https://drupalize.me/blog/201509/speed-casperjs-tests-skipping-unnecessary-http-resources
+casper.options.onResourceRequested = function(casper, requestData, request) {
+  // If any of these strings are found in the requested resource's URL, skip
+  // this request. These are not required for running tests.
+  var skip = [
+			  'googleads.g.doubleclick.net',
+			  'cm.g.doubleclick.net',
+			  'www.googleadservices.com',
+			  'ads2.adverline.com',
+			  'asset.easydmp.net',
+			  'platform.twitter.com',
+			  'www.facebook.com'
+  			 ];
+
+  skip.forEach(function(needle) {
+  	if (requestData.url.indexOf(needle) > 0) {
+		// console.log( '**** ABORTED RESOURCE REQUEST ****' + requestData.url );
+		request.abort();
+  	}
+  })
+
+};
+// -----------------------------------------------------------------------------------------------------
+
+
 // the following array will, at the end of the day (!), 
 // contain the list of shows, each show being a JSON object
 var shows = [];
 
 var searchFilter = 'lyon';
 casper.start('http://www.spectacles.carrefour.fr/recherche/' + searchFilter, function() {
-    this.capture('screenshot.png');
+    // this.capture('screenshot.png');
 });
 
 casper.then( scrape );
@@ -34,8 +62,7 @@ casper.run( function() {
 	
 	this.echo('Done!');
 	this.echo('\n');
-    // I don't know why this.echo does not want to print shows.length !!! Let's switch to console.log ;-)
-    console.log( '# of scraped shows = ', shows.length );
+    this.echo( '# of scraped shows = ' + shows.length );
 	this.echo('dump file = ./' + filename).exit();
 });
 
