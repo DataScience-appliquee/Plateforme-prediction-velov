@@ -1,6 +1,8 @@
 "use strict";
 
 var fs = require('fs');
+var http = require('http');
+var config = require('config.json');
 
 // http://casperjs.org/
 var casper = require('casper').create({
@@ -48,8 +50,8 @@ casper.options.onResourceRequested = function(casper, requestData, request) {
 // contain the list of shows, each show being a JSON object
 var shows = [];
 
-var searchFilter = 'lyon';
-casper.start('http://www.spectacles.carrefour.fr/recherche/' + searchFilter, function() {
+// var searchFilter = 'lyon';
+casper.start(config.url + '/' + config.searchFilter, function() {
     // this.capture('screenshot.png');
 });
 
@@ -115,6 +117,22 @@ function scrape() {
     			show.address = fullAddress[1];
     			show.zipcode = fullAddress[2];
     			show.city    = fullAddress[3];
+
+    			// geocoding: START -------------------------------------------------
+
+    			var wsURL = 'http://' + config.geocoder.address + ':' + config.geocoder.port + '/' + config.geocoder.prefix + show.address + ' ' + show.zipcode + ' ' + show.city;
+    			// var params = {"address": "rue Garibaldi Lyon"};
+    			
+    			var geocode = this.evaluate( function( wsURL ) 
+    											{
+    			        							return JSON.parse( __utils__.sendAJAX(wsURL, 'GET', null, false) );
+    			    					    	}, {wsURL: wsURL});
+    			
+    			show.latitude  = geocode.hasOwnProperty(config.geocoder.latitudeAlias)  ? geocode[config.geocoder.latitudeAlias]  : null;
+    			show.longitude = geocode.hasOwnProperty(config.geocoder.longitudeAlias) ? geocode[config.geocoder.longitudeAlias] : null;
+    			
+    			// geocoding: END ---------------------------------------------------
+    			
 
 		 		var showtimes = this.evaluate( function() {
 

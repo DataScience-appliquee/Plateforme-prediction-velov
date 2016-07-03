@@ -1,0 +1,12 @@
+{
+	"url": "http://www.spectacles.carrefour.fr/recherche",
+	"searchFilter": "vienne",
+	"geocoder": 
+	{
+		"address": "164.132.40.81",
+		"port": "8080",
+		"prefix": "?address=",
+		"latitudeAlias": "lat",
+		"longitudeAlias": "lng"
+	}
+}
