@@ -4,13 +4,17 @@ Le script permet de récupérer les données relatives aux spectacles vendus par
 
 $ npm install
 
+**CONFIGURATION**
+
+=> fichier "config.json"
+
 **DEMARRAGE**
 
 $ npm start
 
 **CONSULTATION DES RESULTATS**
 
-On peut profiter du module json.tool de Python pour faire du *pretty printing* :
+On peut utiliser le module json.tool de Python pour faire du *pretty printing* :
 
 $ python -m json.tool *dump_file*
 
